@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <title>Опитувальник: Цифрові технології в житті людини</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #e7f3fe;
+            border: 1px solid #b3d7ff;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Опитувальник: Цифрові технології в житті людини</h1>
+
+<form id="surveyForm">
+    <div class="question">
+        <label>1. Як часто Ви користуєтеся інтернетом?</label>
+        <input type="radio" name="internetUse" value="Щодня" required> Щодня<br>
+        <input type="radio" name="internetUse" value="Нескільки разів на тиждень"> Нескільки разів на тиждень<br>
+        <input type="radio" name="internetUse" value="Рідко"> Рідко<br>
+        <input type="radio" name="internetUse" value="Ніколи"> Ніколи
+    </div>
+
+    <div class="question">
+        <label>2. Для яких цілей Ви використовуєте цифрові технології? (можна обрати кілька)</label>
+        <input type="checkbox" name="purposes" value="Робота"> Робота<br>
+        <input type="checkbox" name="purposes" value="Навчання"> Навчання<br>
+        <input type="checkbox" name="purposes" value="Розваги"> Розваги<br>
+        <input type="checkbox" name="purposes" value="Спілкування"> Спілкування<br>
+        <input type="checkbox" name="purposes" value="Інше"> Інше
+    </div>
+
+    <div class="question">
+        <label>3. Чи відчуваєте Ви залежність від цифрових пристроїв?</label>
+        <input type="radio" name="dependence" value="Так" required> Так<br>
+        <input type="radio" name="dependence" value="Ні"> Ні<br>
+        <input type="radio" name="dependence" value="Іноді"> Іноді
+    </div>
+
+    <div class="question">
+        <label>4. Чи вважаєте Ви, що цифрові технології покращують Ваше життя?</label>
+        <input type="radio" name="improvement" value="Так" required> Так<br>
+        <input type="radio" name="improvement" value="Ні"> Ні<br>
+        <input type="radio" name="improvement" value="Частково"> Частково
+    </div>
+
+    <button type="submit">Підтвердити</button>
+</form>
+
+<div class="result" id="resultContainer">
+    <h2>Дякуємо за заповнення опитувальника!</h2>
+    <p>Ваші відповіді будуть використані для аналізу.</p>
+</div>
+
+<script>
+    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Отримання відповідей
+        const internetUse = document.querySelector('input[name="internetUse"]:checked').value;
+        const purposesNodes = document.querySelectorAll('input[name="purposes"]:checked');
+        const purposes = Array.from(purposesNodes).map(node => node.value);
+        const dependence = document.querySelector('input[name="dependence"]:checked').value;
+        const improvement = document.querySelector('input[name="improvement"]:checked').value;
+
+        // Виведення відповіді
+        const resultDiv = document.getElementById('resultContainer');
+        resultDiv.style.display = 'block';
+
+        // Можна додати більш детальну обробку або збереження даних
+        resultDiv.innerHTML = `
+            <h2>Ваші відповіді:</h2>
+            <p><strong>Частота користування інтернетом:</strong> ${internetUse}</p>
+            <p><strong>Цілі використання цифрових технологій:</strong> ${purposes.length > 0 ? purposes.join(', ') : 'Не обрано'}</p>
+            <p><strong>Чи відчуваєте залежність:</strong> ${dependence}</p>
+            <p><strong>Чи покращують технології життя:</strong> ${improvement}</p>
+        `;
+    });
+</script>
+
+</body>
+</html>
